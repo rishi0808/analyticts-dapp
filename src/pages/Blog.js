@@ -5,10 +5,10 @@ import BlogItem from "../Components/Common/BlogItem";
 import BreadCrumb from "../Components/Common/BreadCrumb";
 const Blog = () => (
   <Container fluid={true}>
-    <div style={{marginTop: "90px"}}>
+    <div style={{marginTop: "90px", width: "99%"}}>
       <BreadCrumb title="Blog" breadcrumbItem="Blog" />
     </div>
-    <div>
+    <div style={{margin: "30px"}}>
     
       <div className="row row-cols-lg-3 row-cols-md-2 row-cols-sm-2 row-cols-1 mb-n6">
         {BlogClassicData &&

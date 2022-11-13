@@ -3,12 +3,7 @@ import CountUp from "react-countup";
 import { Card, CardBody, Col,Row } from 'reactstrap';
 import FeatherIcon from "feather-icons-react";
 import { formatyocto} from '../../helpers/lib';
-import Astronaut1 from '../../assets/images/astronautas/Astronaut-1.png';
-import Astronaut7 from '../../assets/images/astronautas/Astronaut-7.png';
-import Astronaut3 from '../../assets/images/astronautas/Astronaut-3.png';
-import Astronaut4 from '../../assets/images/astronautas/Astronaut-4.png';
-import Astronaut5 from '../../assets/images/astronautas/Astronaut-5.png';
-import Astronaut6 from '../../assets/images/astronautas/Astronaut-6.png';
+
 
 
 
@@ -40,7 +35,15 @@ const Widgets2 = ({data, performer}) => {
     return (
         <React.Fragment>
             <Row>
-           
+            <div className="d-flex mb-3">
+                            <div className="flex-grow-1">
+                            
+                                <h2 className="text-muted mb-0">
+                                     STATS
+                                </h2>
+                            </div>
+   
+                        </div>
             <Col xxl={2} md={6} key={performer}>
                 <Card className="card-animate">
                 
@@ -50,7 +53,7 @@ const Widgets2 = ({data, performer}) => {
                             <div className="flex-grow-1">
                             
                                 <h4 className="text-muted mb-0">
-                                    <FeatherIcon icon="users"/>  Near
+                                    <FeatherIcon icon="star" className="icon-dual-success"/>  Near
                                 </h4>
                             </div>
    
@@ -83,7 +86,7 @@ const Widgets2 = ({data, performer}) => {
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
                             
-                            <h4 className="text-muted mb-0"><FeatherIcon icon="share-2"/>  Nodes</h4>
+                            <h4 className="text-muted mb-0"><FeatherIcon icon="share-2" className="icon-dual-success"/>  Nodes</h4>
                             </div>
    
                         </div>
@@ -113,7 +116,7 @@ const Widgets2 = ({data, performer}) => {
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
                             
-                                <h4 className="text-muted mb-0"><FeatherIcon icon="repeat"/>  Transactions
+                                <h4 className="text-muted mb-0"><FeatherIcon icon="repeat" className="icon-dual-success"/>  Transactions
                                 </h4>
                             </div>
    
@@ -144,7 +147,7 @@ const Widgets2 = ({data, performer}) => {
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
                             
-                            <h4 className="text-muted mb-0"><FeatherIcon icon="users"/>  Wallets</h4>
+                            <h4 className="text-muted mb-0"><FeatherIcon icon="users" className="icon-dual-success"/>  Wallets</h4>
                             </div>
    
                         </div>
@@ -174,7 +177,7 @@ const Widgets2 = ({data, performer}) => {
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
                             
-                                <h4 className="text-muted mb-0"><FeatherIcon icon="user-plus"/>  Active Wallets
+                                <h4 className="text-muted mb-0"><FeatherIcon icon="user-plus" className="icon-dual-success"/>  Active Wallets
                                 </h4>
                             </div>
    
@@ -208,7 +211,7 @@ const Widgets2 = ({data, performer}) => {
                         <div className="d-flex mb-3">
                             <div className="flex-grow-1">
                             
-                                <h4 className="text-muted mb-0"><FeatherIcon icon="file-text"/>  Smart contracts
+                                <h4 className="text-muted mb-0"><FeatherIcon icon="file-text" className="icon-dual-success"/>  Smart contracts
                                 </h4>
                             </div>
    
@@ -232,79 +235,7 @@ const Widgets2 = ({data, performer}) => {
                 </Card>
             </Col>
             </Row>
-            <Row>
-                <Col xxl={2} md={6}>
-                    <Card className="card-animate">
-                        <CardBody className="text-center">
-                         <img alt="astronauta 1" className="avatar-sm rounded-circle " src={Astronaut6} /> <h3 className="mb-2">{month[m-5]}</h3>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xxl={2} md={6}>
-                    <Card className="card-animate text-center">
-                        <CardBody>
-                         <img alt="astronauta 1" className="avatar-sm rounded-circle" src={Astronaut5} /> <h3 className="mb-2">{month[m-4]}</h3>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xxl={2} md={6}>
-                    <Card className="card-animate text-center">
-                        <CardBody>
-                         <img alt="astronauta 1" className="avatar-sm rounded-circle" src={Astronaut4} /> <h3 className="mb-2">{month[m-3]}</h3>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xxl={2} md={6}>
-                    <Card className="card-animate text-center">
-                        <CardBody>
-                         <img alt="astronauta 1" className="avatar-sm rounded-circle" src={Astronaut3} /><h3 className="mb-2">{month[m-2]}</h3> 
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xxl={2} md={6}>
-                    <Card className="card-animate text-center">
-                        <CardBody>
-                        <img alt="astronauta 1" className="avatar-sm rounded-circle" src={Astronaut7} /> <h3 className="mb-2">{month[m-1]}</h3>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xxl={2} md={6}>
-                    <Card className="card-animate text-center">
-                        <CardBody>
-                         <img alt="astronauta 1" className="avatar-sm rounded-circle" src={Astronaut1} /> <h3 className="mb-2">{month[m]}</h3>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-
-            {/* <Row>
-            <div className="align-items-center d-flex"><h6 className="text-muted mb-0 ">Available Balance (USD)</h6>  </div> 
-            {(dataAccounts || []).map((item, key) => (
-                <Col lg={2} md={3} key={key}>
-                    <Card>
-                        
-                        <CardBody>
-                            <p>Month Total Accounts</p>
-                            <div className="d-flex align-items-center">
-                                <div className="avatar-sm flex-shrink-0">
-                                    <span className="avatar-title bg-light text-primary rounded-circle fs-3">
-                                        <i className={"align-middle " + "ri-arrow-up-circle-fill"}></i>
-                                    </span>
-                                </div>
-                                <div className="flex-grow-1 ms-3">
-                                    <p className="text-uppercase fw-semibold fs-12 text-muted mb-1">{"Total Change"}</p>
-                                    <h4 className=" mb-0"> <CountUp start={0} end={item.accounts} decimals={2} separator={","} prefix={""} duration={3} />
-                                    </h4>
-                                </div>
-                                <div className="flex-shrink-0 align-self-end">
-                                    
-                                    </div>
-                            </div>
-                        </CardBody>
-                    </Card>
-                </Col>
-            ))}
-            </Row> */}
+            
         </React.Fragment>
     );
 }

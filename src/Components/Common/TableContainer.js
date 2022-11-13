@@ -34,7 +34,7 @@ function GlobalFilter({
         <form>
           <Row className="g-3">
             <Col>
-              <div className={( isNFTRankingFilter) ? "search-box me-2 mb-2 d-inline-block" : "search-box me-2 mb-2 d-inline-block col-12"}>
+              <div className={(isNFTRankingFilter) ? "search-box me-2 mb-2 d-inline-block" : "search-box me-2 mb-2 d-inline-block col-12"}>
                 <input
                   onChange={(e) => {
                     setValue(e.target.value);
@@ -106,7 +106,7 @@ const TableContainer = ({
       initialState: {
         pageIndex: 0, pageSize: customPageSize, selectedRowIds: 0, sortBy: [
           {
-            id:'market_cap',
+            id:'volume7d',
             desc: true,
           },
         ],

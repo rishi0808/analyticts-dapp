@@ -3,11 +3,11 @@ import { Container,  Card, CardBody, Col, Row, CardHeader } from 'reactstrap';
 import { useParams , Link } from 'react-router-dom';
 import BreadCrumb from  "../Components/Common/BreadCrumb";
 import TableContainer from "../Components/Common/TableContainer";
-
 import Chart from "../Components/Common/Chart";
-
 import ReactTooltip from 'react-tooltip';
 import { formatyocto , format } from '../helpers/lib';
+import parasicon from '../assets/images/near/paras.png';
+
 export default function CollectionProfile(props){
 
     let { collectionId } = useParams();
@@ -32,7 +32,7 @@ export default function CollectionProfile(props){
         let requestCollectionActivities = await fetch(process.env.REACT_APP_API_URL + '/collection-activities?collection_id=' + collectionId + '&filter=sale&__skip=0&__limit=10&__sort=des_issued_at');
         let resultCollectionActivities = await requestCollectionActivities.json();
 
-        //console.log("Activities",resultCollectionActivities);
+        console.log("profile",data);
 
         let colsVolume = [];
         let colsDate = [];
@@ -40,7 +40,7 @@ export default function CollectionProfile(props){
 
         for(let collection of resultCollectionDailyId.data.volume_daily.slice(15,29)){
         
-            let opSale = String(formatyocto(collection.volume) + "Ⓝ");
+            let opSale = String(formatyocto(collection.volume,0) + "Ⓝ");
             let opDate = String(collection.date).substring(5,10);
             
             colsVolume.push(opSale);
@@ -63,7 +63,7 @@ export default function CollectionProfile(props){
             //console.log('From', opFrom)
             let opOwner = collection2.to;
             //console.log('Owner', opOwner)
-            let opSale = String( formatyocto(collection2.price)+"Ⓝ");
+            let opSale = String( formatyocto(collection2.price)+" Ⓝ");
             let opStatus = collection2.type;
 
             colsTableData.push(
@@ -71,7 +71,7 @@ export default function CollectionProfile(props){
                     title: 
                     <>
                         <div className="d-flex align-items-center">
-                        <img alt="" className="avatar-sm rounded-circle" src={opImage} /> <p></p>
+                        <img alt="" className="avatar-md rounded" src={opImage} /> <p></p>
                             <div className="ms-3">                                            
                                 <p className="mb-0 text">{opTitle}</p>
                             </div> 
@@ -80,7 +80,7 @@ export default function CollectionProfile(props){
                     from: 
                     <>
                         <>
-                        <button data-tip data-for={opDate+"registerTipFrom"} className='toolTipButton'>{String(opFrom).substring(0,20)}</button> 
+                        <button data-tip data-for={opDate+"registerTipFrom"} className='toolTipButton'><h6>{String(opFrom).substring(0,16)}</h6></button> 
                         <ReactTooltip id={opDate+"registerTipFrom"} place="top" effect="solid">{opFrom}</ReactTooltip>
                         </>
                     </>,
@@ -88,13 +88,13 @@ export default function CollectionProfile(props){
                     <>
 
                         <>
-                        <button data-tip data-for={opDate+"registerTipOwner"} className='toolTipButton'>{String(opOwner).substring(0,20)}</button> 
-                        <ReactTooltip id={opDate+"registerTipOwner"} place="top" effect="solid">{opOwner}</ReactTooltip>
+                        <button data-tip data-for={opDate+"registerTipOwner"} className='toolTipButton'><h6>{String(opOwner).substring(0,16)}</h6></button> 
+                        <ReactTooltip id={opDate+"registerTipOwner"} place="top" effect="solid"><h6>{opOwner}</h6></ReactTooltip>
                         </>
                     </>
                     ,
                     date: String(opDate).substring(0,10),
-                    payment: opSale,
+                    price: opSale,
                     operation: opStatus
                 }
                 
@@ -119,8 +119,8 @@ export default function CollectionProfile(props){
                 accessor: "title",
                 filterable: false,
             },{                
-                Header: "Payment",
-                accessor: "payment",
+                Header: "Price",
+                accessor: "price",
                 filterable: false,
             }, 
             {                
@@ -156,44 +156,51 @@ export default function CollectionProfile(props){
                     <Col md={3}>
                         <Card className={"card-animate"}>
                             <CardHeader className="border-0 align-items-center d-flex">
-                                <h4 className="card-title mb-0 flex-grow-1">{data.collection}</h4>
+                                <h2 className="card-title mb-0 flex-grow-1 fs-2">{data.collection}</h2>
                             </CardHeader>
                             <CardBody>
                             
-                                <img alt="" src={process.env.REACT_APP_IPFS_URL + '/' + data.media} style={{maxWidth: '100%'}} className="rounded" />
+                                <img alt="" src={process.env.REACT_APP_IPFS_URL2 + '/' + data.media} style={{maxWidth: '100%'}} className="rounded" />
                                 
-                                {/* {(data.socialMedia).map((item,key) => (
-                                <div className="d-flex flex-wrap gap-2 mt-4" key="">
-                                    <div>
-                                    <a href={  `${(!item === "" || key) ? `https://${key}.gg/` : 
-             (!item === "") ? `https://${key}.com/` :
-             (!item === "") ? "Good" : "Excellent"} ${item}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">  
-                                    
-                                            
-                                            <span
-                                                className="avatar-title rounded-circle fs-16 bg-soft-dark text-dark text-light">
-                                                <i className="ri-discord-fill"></i>
-                                            </span>
+                                <div className="d-flex flex-wrap gap-2 mt-4 text-center" key="">
+                                    {(data.socialMedia.discord) ?  
+                                        <div>
+                                            <a href={`https://discord.gg/${data.socialMedia.discord}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">       
+                                                <span
+                                                    className="avatar-title rounded-circle fs-16 bg-soft-dark text-dark text-center text-light">
+                                                    <i className="ri-discord-fill"></i>
+                                                </span>
                                             </a>
-                                    </div>
+                                        </div> : "" }
+
+                                    {(data.socialMedia.twitter) ?
                                     <div>
-                                    <a href={ `${data.socialMedia.website}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
-                                            <span
-                                                className="avatar-title rounded-circle fs-16 bg-soft-dark text-dark text-light">
-                                                <i className="ri-global-fill"></i>
-                                            </span>
-                                            </a>
-                                    </div>
-                                    <div>
-                                    <a href={ `https://twitter.com/${data.socialMedia.twitter}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
+                                        <a href={ `https://twitter.com/${data.socialMedia.twitter}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
                                             <span
                                                 className="avatar-title rounded-circle fs-16 bg-soft-dark text-dark text-light">
                                                 <i className="ri-twitter-fill"></i>
                                             </span>
-                                            </a>
+                                        </a>
+                                    </div>: ""}
+                                    {(data.socialMedia.website) ?
+                                    <div>
+                                        <a href={ `${data.socialMedia.website}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
+                                            <span
+                                                className="avatar-title rounded-circle fs-16 bg-soft-dark text-dark text-light">
+                                                <i className="ri-global-fill"></i>
+                                            </span>
+                                        </a>
+                                    </div>: ""}
+                                    
+                                    <div>
+                                        <a href={ `https://paras.id/collection/${data.collection_id}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
+                                            <span
+                                                className="avatar-title rounded-circle fs-16 bg-soft-dark text-dark text-light">
+                                                <img src={parasicon} alt="paras" className="rounded-circle avatar-xxs" />
+                                            </span>
+                                        </a>
                                     </div>
-                                    </div>
-                                        ))}                     */}
+                                </div>                        
                                 <div className="mt-4">
                                     {data.description}
                                 </div>
@@ -203,7 +210,8 @@ export default function CollectionProfile(props){
 
                         <Card className={"card-animate"}>
                             <CardHeader className="border-0 align-items-center d-flex">
-                                <h4 className="card-title mb-0 flex-grow-1">NFT History</h4>
+                                <h4 className="card-title mb-0 flex-grow-1">Sales volume :</h4>
+                                
                             </CardHeader>
                             <CardBody>
                                 {!!historic &&
@@ -219,10 +227,10 @@ export default function CollectionProfile(props){
                             <Col md={4}>
                                 <Card className={"card-animate"}>
                                     <CardHeader className="border-0 align-items-center d-flex">
-                                        <h4 className="card-title mb-0 flex-grow-1">Total volume USD</h4>
+                                        <h3 className=" card-title mb-0 flex-grow-6">Total volume</h3>
                                     </CardHeader>
                                     <CardBody>
-                                        {format(data.volume_usd)}
+                                        <h3 className="lh-lg card-title mb-0 flex-grow-6">{format(formatyocto(data.volume)*1)} Ⓝ</h3>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -232,7 +240,7 @@ export default function CollectionProfile(props){
                                         <h4 className="card-title mb-0 flex-grow-1">Avg price</h4>
                                     </CardHeader>
                                     <CardBody>
-                                        {format(data.avg_price_usd)}
+                                    <h3 className="card-title mb-0 flex-grow-6">{formatyocto(data.avg_price)} Ⓝ</h3>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -242,7 +250,7 @@ export default function CollectionProfile(props){
                                         <h4 className="card-title mb-0 flex-grow-1">Floor price</h4>
                                     </CardHeader>
                                     <CardBody>
-                                        {format(data.floor_price / 1e+24)}
+                                    <h3 className="card-title mb-0 flex-grow-6">{formatyocto(data.floor_price)} Ⓝ</h3>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -255,17 +263,18 @@ export default function CollectionProfile(props){
                                         <h4 className="card-title mb-0 flex-grow-1">Total sales</h4>
                                     </CardHeader>
                                     <CardBody>
-                                        {data.total_sales}
+                                    <h3 className="card-title mb-0 flex-grow-6">{data.total_sales}</h3>
                                     </CardBody>
                                 </Card>
                             </Col>
+                            
                             <Col md={4}>
                                 <Card className={"card-animate"}>
                                     <CardHeader className="border-0 align-items-center d-flex">
                                         <h4 className="card-title mb-0 flex-grow-1">Total owners</h4>
                                     </CardHeader>
                                     <CardBody>
-                                        {data.total_owners}
+                                    <h3 className="card-title mb-0 flex-grow-6">{data.total_owners}</h3>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -275,7 +284,7 @@ export default function CollectionProfile(props){
                                         <h4 className="card-title mb-0 flex-grow-1">Total cards</h4>
                                     </CardHeader>
                                     <CardBody>
-                                        {data.total_cards}
+                                    <h3 className="card-title mb-0 flex-grow-6">{data.total_cards}</h3>
                                     </CardBody>
                                 </Card>
                             </Col>

@@ -106,7 +106,7 @@ const Navdata = () => {
         {
             id: "nearhighlights",
             label: "NEAR Highlights",
-            icon: <i className="ri-rocket-line" />,
+            icon: <i className="ri-star-s-line" />,
             link: "/near-highlights",
             stateVariables: isDashboard,
             click: function (e) {

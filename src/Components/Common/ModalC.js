@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import {Rating} from 'react-simple-star-rating'
 import rocket from '../../assets/images/rocket.png';
+import logoDark from "../../assets/images/favicon.png";
 const ModalC = () => {
   const [formStatus, setFormStatus] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -100,9 +101,10 @@ function tog_backdrop() {
         <ModalBody className="modal-body text-center p-5">
           <div className="modal-body text-center p-5">
           
-          <img className='avatar-md rounded'  src={rocket} alt="description"/>
+          <img className='avatar-md rounded'  src={logoDark} alt="description"/>
+          <h4 className="fst-italic mb-sm-0 text-center"style={{margin: 20}}>CryptOracle.io</h4>
             <div className="App">
-              <div style={{  maxWidth: "520px", margin: "32px auto"}}>
+              <div style={{  maxWidth: "320px", margin: "10px auto"}}>
                 <form encType="multipart/form-data" onSubmit={handleSubmit}>
                 <label htmlFor="message-text" className="col-form-label">Rate our app:</label>
                 <Rating

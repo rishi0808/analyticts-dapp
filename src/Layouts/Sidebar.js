@@ -11,6 +11,8 @@ import VerticalLayout from "./VerticalLayouts";
 import TwoColumnLayout from "./TwoColumnLayout";
 import { Container } from "reactstrap";
 import HorizontalLayout from "./HorizontalLayout";
+import NearB from '../assets/images/near/built.png';
+import NearBR from '../assets/images/near/built-rev.png';
 
 const Sidebar = ({ layoutType }) => {
 
@@ -36,14 +38,15 @@ const Sidebar = ({ layoutType }) => {
   return (
     <React.Fragment>
       <div className="app-menu navbar-menu">
-        <div className="navbar-brand-box">
+        <div className="navbar-brand-box" >
           <Link to="/" className="logo logo-dark">
-            <span className="logo-sm">
+            <span className="logo-sm" >
               <img src={logoSm} alt="" height="40" />
             </span>
             <span className="logo-lg">
-              <img src={logoDark} alt="" height="60" />
-              <h4 className="fst-italic mb-sm-0 text-center"style={{margin: 20}}>CryptOracle.io</h4>
+              <img src={logoDark} alt="" height="60" style={{ marginTop: 20}}/>
+              <h4 className="fst-italic mb-sm-0 text-center" style={{margin: 20, marginTop: 20}}>CryptOracle.io</h4>
+              <img src={NearB} alt="Built on NEAR" height="40" style={{opacity: "60%"}}/>
             </span>
           </Link>
 
@@ -53,10 +56,14 @@ const Sidebar = ({ layoutType }) => {
               
             </span>
             <span className="logo-lg">
-              <img src={logoLight} alt="" height="60"/>
-              <h4 className="fst-italic mb-sm-0 text-center"style={{margin: 20}}>CryptOracle.io</h4>
+              <img src={logoLight} alt="" height="60"style={{ marginTop: 20}}/>
+              <h4 className="fst-italic mb-sm-0 text-center"style={{margin: 20, marginTop: 20}}>CryptOracle.io</h4>
+              
+                    <img src={NearBR} alt="Built on NEAR" height="40"style={{opacity: "60%"}}/>
+                 
             </span>
           </Link>
+
           <button
             onClick={addEventListenerOnSmHoverMenu}
             type="button"
@@ -88,6 +95,7 @@ const Sidebar = ({ layoutType }) => {
                 <ul className="navbar-nav" id="navbar-nav">
                   <VerticalLayout layoutType={layoutType} />
                 </ul>
+
               </Container>
             </SimpleBar>
             <div className="sidebar-background"></div>

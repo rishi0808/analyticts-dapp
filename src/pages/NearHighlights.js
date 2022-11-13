@@ -12,7 +12,7 @@ import Widgets from "../Components/Common/Widgets"
 
 const NearHighlights = () => {
     const [data, setData] = useState({});
-    
+    const [ready, setReady] = useState(false);
 
 const init = async () => { 
     
@@ -22,16 +22,17 @@ const init = async () => {
      zeroArray.push(zero)
     //console.log("Zero log",zero);
     setData(zero)
-
+    setReady(true);
 };
 
 useEffect(() => {
     init();
 }, []);
+if(!ready) return <Container fluid={true}>Loading...</Container>
     return (
         <React.Fragment>
             <div className="page-content">
-                <Container fluid>
+                <Container fluid={true}>
                     <BreadCrumb title="NearHighlights" />
                     <Row>
                         <Widgets2 data={data} performer="Buyers"/>

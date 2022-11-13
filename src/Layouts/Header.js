@@ -13,6 +13,7 @@ import LightDark from "../Components/Common/LightDark";
 import Login from "../Components/Common/Login";
 import ModalC from "../Components/Common/ModalC";
 
+
 const Header = ({ onChangeLayoutMode, layoutModeType, leftSidebarType, headerClass }) => {
 
 
@@ -102,12 +103,13 @@ const Header = ({ onChangeLayoutMode, layoutModeType, leftSidebarType, headerCla
                 leftSidebarType={leftSidebarType}
                 onChangeLayoutMode={onChangeLayoutMode}
               />
-              <div style={{ }}>
+              <div style={{}}>
                 <Login />
               </div>
-              <div style={{ marginRight: 20 }}>
+              <div style={{marginRight:0}}>
                 <ModalC />
               </div>
+
               {/* NotificationDropdown */}
 
         

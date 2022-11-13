@@ -20,7 +20,7 @@ export default function CollectionsTrends(props){
         let HighestSales = await fetch(process.env.REACT_APP_API_URL + '/top-token');
         let HighestSalesJson = await HighestSales.json();
         //console.log("HighestSalesJson", HighestSalesJson);
-        const apiNearPrice = await fetch("https://api.binance.com/api/v3/ticker/price?symbol=NEARUSDT");
+        const apiNearPrice = await fetch(process.env.NEAR_TICKER);
         
         const NearPrice = await apiNearPrice.json();
         let  nP = formatNumber(NearPrice.price);
@@ -51,29 +51,32 @@ export default function CollectionsTrends(props){
         }    
 
         let colDetails = await  Promise.all(colsActivities);
-
+        console.log(resultActivities);
         let colsCollections = [];
-
+        let i = 0;
         for(let collectionStatsDetails of colDetails){
+            
             for(let collectionStatsDetailsFiltered of collectionStatsDetails.data.data.results){
                 colsCollections.push({
                     collection: 
                     <div className="d-flex align-items-center">
-                    <Link to={'/collections/' + collectionStatsDetailsFiltered.collection_id}><img alt="" className="avatar-sm rounded-circle" src={process.env.REACT_APP_IPFS_URL + '/' + collectionStatsDetailsFiltered.media} /></Link>
+                    <Link to={'/collections/' + collectionStatsDetailsFiltered.collection_id}><img alt="" className="avatar-sm rounded-circle" src={process.env.REACT_APP_IPFS_URL2 + '/' + collectionStatsDetailsFiltered.media} /></Link>
                         <div className="ms-3">                                            
                             <Link to={'/collections/' + collectionStatsDetailsFiltered.collection_id}><h5 className="fs-15 mb-1">{collectionStatsDetailsFiltered.collection}</h5></Link>                                    
                             <p className="mb-0 text-muted">by {collectionStatsDetailsFiltered.creator_id}</p>
                         </div> 
                     </div>,
                     volume:formatyocto(collectionStatsDetailsFiltered.volume),
+                    volume7d:formatyocto(resultActivities.data.collections[i].total_sum),
                     market_cap: formatNumber(formatyocto(collectionStatsDetailsFiltered.avg_price) * collectionStatsDetailsFiltered.total_cards) ,
-                    average: formatyocto(collectionStatsDetailsFiltered.avg_price ),
-                          
+                    average: formatyocto(collectionStatsDetailsFiltered.avg_price ),     
                     floor: formatyocto(collectionStatsDetailsFiltered.floor_price,0),
+                    sales7d:(resultActivities.data.collections[i].contract_token_ids.length),
                     supply: collectionStatsDetailsFiltered.total_cards,
                     owners: collectionStatsDetailsFiltered.total_owners,
                     total_sales: collectionStatsDetailsFiltered.total_sales,
                 });
+                i++
             }
         }   
         //setHighestSales(JSON.stringify(HHighestSales.data));
@@ -107,13 +110,26 @@ export default function CollectionsTrends(props){
                 }
             },
             {
+                Header: "Volume 7d",
+                accessor: "volume7d",
+                disableSortBy: false,
+                defaultColumn: true,
+                Cell: (cell) => {
+                    return ( <div className="flex-grow-1 ms-3">
+                                        <h6 className="fs-14 mb-1">{format(cell.value *1)} Ⓝ </h6>
+                                        <h6 className="text-muted mb-0"> $ {format(cell.value * nearPrice)}</h6>
+                                    </div> );
+                    
+                }
+            },
+            {
                 Header: "Market Cap",
                 accessor: "market_cap",
-                defaultColumn: true,
+                defaultColumn: false,
                 Cell: (cell) => {
                         return ( <div className="flex-grow-1 ms-3">
                                             <h6 className="fs-14 mb-1">{format(cell.value*1)} Ⓝ </h6>
-                                            
+                                            <h6 className="text-muted mb-0"> $ {format(cell.value * nearPrice)}</h6>
                                         </div> );
                 }
 
@@ -141,19 +157,48 @@ export default function CollectionsTrends(props){
                 }
             },
             {
+                Header: "Sales 7d",
+                accessor: "sales7d",
+                filterable: true,
+                Cell: (cell) => {
+                    return (<div className="flex-grow-1 ms-3">
+                                <h6 className="fs-14 mb-1">{format(cell.value)} Ⓝ</h6>
+                                
+                            </div> );
+                }
+            },
+            {
                 Header: "Supply",
                 accessor: "supply",
                 filterable: true,
+                Cell: (cell) => {
+                    return (<div className="flex-grow-1 ms-3">
+                                <h6 className="fs-14 mb-1">{(cell.value)}</h6>
+                                
+                            </div> );
+                }
             },
             {
                 Header: "Owners",
                 accessor: "owners",
                 filterable: true,
+                Cell: (cell) => {
+                    return (<div className="flex-grow-1 ms-3">
+                                <h6 className="fs-14 mb-1">{(cell.value)}</h6>
+                                
+                            </div> );
+                }
             },
             {
                 Header: "Total sales",
                 accessor: "total_sales",
                 filterable: true,
+                Cell: (cell) => {
+                    return (<div className="flex-grow-1 ms-3">
+                                <h6 className="fs-14 mb-1">{(cell.value)}</h6>
+                                
+                            </div> );
+                }
             },
         ],
     [nearPrice]);
@@ -166,6 +211,12 @@ export default function CollectionsTrends(props){
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="card" id="contactList">
+                                <div className="card-header border-0">
+                                    <div className="d-flex align-items center">
+                                        <h5 className="card-title mb-0 flex-grow-1">The top NFTs Collections</h5>
+                                        <p className="text-muted mb-0">{new Date().toLocaleString()}</p>
+                                    </div>
+                                </div>
                                     <div className="card-body pt-0">
                                         {!!collections &&
                                             <TableContainer                        
