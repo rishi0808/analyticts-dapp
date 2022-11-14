@@ -15,6 +15,8 @@ The best analytics dapp, Discovering, interpreting, and communicating significan
 
 ### `yarn` 
 
+Instal required project dependencies
+
 
 ### `yarn start` 
 
