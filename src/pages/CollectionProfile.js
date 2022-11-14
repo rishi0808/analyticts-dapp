@@ -32,7 +32,7 @@ export default function CollectionProfile(props){
         let requestCollectionActivities = await fetch(process.env.REACT_APP_API_URL + '/collection-activities?collection_id=' + collectionId + '&filter=sale&__skip=0&__limit=10&__sort=des_issued_at');
         let resultCollectionActivities = await requestCollectionActivities.json();
 
-        console.log("profile",data);
+        //console.log("profile",data);
 
         let colsVolume = [];
         let colsDate = [];
@@ -58,21 +58,29 @@ export default function CollectionProfile(props){
 
             let opDate = collection2.msg.datetime;
             let opTitle = metadataTitle;
-            let opImage = metadataImage;
+            let opImage = String(metadataImage);
+            let isHttp = opImage.includes("://");
             let opFrom = collection2.from;
-            //console.log('From', opFrom)
+            //console.log('From', isHttp);
             let opOwner = collection2.to;
             //console.log('Owner', opOwner)
             let opSale = String( formatyocto(collection2.price)+" Ⓝ");
             let opStatus = collection2.type;
+            let ipfspic 
+            if (isHttp > 0 ) {
+                ipfspic =opImage 
+            }else{
+                ipfspic = "https://ipfs.fleek.co/ipfs/" + opImage
+            } 
 
             colsTableData.push(
                 {   
                     title: 
                     <>
                         <div className="d-flex align-items-center">
-                        <img alt="" className="avatar-md rounded" src={opImage} /> <p></p>
-                            <div className="ms-3">                                            
+                            <img alt="" className="avatar-md rounded" src={ipfspic} />
+
+                        <div className="ms-3">                                            
                                 <p className="mb-0 text">{opTitle}</p>
                             </div> 
                         </div>
@@ -144,6 +152,7 @@ export default function CollectionProfile(props){
             }
         ],
     []);
+    //console.log("DATA", data);
     if(!ready) return <Container fluid={true}>Loading...</Container>
 
     return (<div className="page-content">
@@ -162,8 +171,8 @@ export default function CollectionProfile(props){
                             
                                 <img alt="" src={process.env.REACT_APP_IPFS_URL2 + '/' + data.media} style={{maxWidth: '100%'}} className="rounded" />
                                 
-                                <div className="d-flex flex-wrap gap-2 mt-4 text-center" key="">
-                                    {(data.socialMedia.discord) ?  
+                                <div className="d-flex flex-wrap gap-2 mt-4 text-center">
+                                    {(data.socialMedia && data.socialMedia.discord !== undefined) ?  
                                         <div>
                                             <a href={`https://discord.gg/${data.socialMedia.discord}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">       
                                                 <span
@@ -171,9 +180,9 @@ export default function CollectionProfile(props){
                                                     <i className="ri-discord-fill"></i>
                                                 </span>
                                             </a>
-                                        </div> : "" }
+                                        </div> : <></> }
 
-                                    {(data.socialMedia.twitter) ?
+                                    {(data.socialMedia && data.socialMedia.twitter !== undefined) ?
                                     <div>
                                         <a href={ `https://twitter.com/${data.socialMedia.twitter}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
                                             <span
@@ -182,7 +191,7 @@ export default function CollectionProfile(props){
                                             </span>
                                         </a>
                                     </div>: ""}
-                                    {(data.socialMedia.website) ?
+                                    {(data.socialMedia && data.socialMedia.website !== undefined) ?
                                     <div>
                                         <a href={ `${data.socialMedia.website}`} className="avatar-xs d-block" target="_blank" rel="noreferrer noopener">
                                             <span
