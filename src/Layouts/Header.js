@@ -12,7 +12,7 @@ import logoLight from "../assets/images/favicon.png";
 import LightDark from "../Components/Common/LightDark";
 import Login from "../Components/Common/Login";
 import ModalC from "../Components/Common/ModalC";
-
+import FullScreenDropdown from '../Components/Common/FullScreenDropdown';
 
 const Header = ({ onChangeLayoutMode, layoutModeType, leftSidebarType, headerClass }) => {
 
@@ -96,7 +96,10 @@ const Header = ({ onChangeLayoutMode, layoutModeType, leftSidebarType, headerCla
             </div>
 
             <div className="d-flex align-items-center">
-
+              
+              {/* FullScreenDropdown */}
+              <FullScreenDropdown />             
+              
               {/* Dark/Light Mode set */}
               <LightDark
                 layoutMode={layoutModeType}
