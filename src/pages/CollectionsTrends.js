@@ -163,7 +163,7 @@ export default function CollectionsTrends(props){
                 filterable: true,
                 Cell: (cell) => {
                     return (<div className="flex-grow-1 ms-3">
-                                <h6 className="fs-14 mb-1">{format(cell.value)} Ⓝ</h6>
+                                <h6 className="fs-14 mb-1">{format(cell.value)}</h6>
                                 
                             </div> );
                 }
