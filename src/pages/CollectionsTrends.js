@@ -214,7 +214,7 @@ export default function CollectionsTrends(props){
                                 <div className="card" id="contactList">
                                 <div className="card-header border-0">
                                     <div className="d-flex align-items center">
-                                        <h5 className="card-title mb-0 flex-grow-1">The top NFTs Collections  <FeatherIcon icon="trending-up" className="mr-1 mb-1 icon-dual-success"/></h5>
+                                        <h5 className="card-title mb-0 flex-grow-1">The top NFTs Collections  <FeatherIcon icon="trending-up" className="mr-1 mb-1 icon-dual-success "/></h5>
                                         <p className="text-muted mb-0">{new Date().toLocaleString()}</p>
                                     </div>
                                 </div>

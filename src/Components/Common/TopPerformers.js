@@ -6,6 +6,7 @@ import { formatyocto } from '../../helpers/lib';
 
 
 const TopPerformers = ({data}) => {
+    console.log("data", data);
     return (
         <React.Fragment>
             <Col xxl={4} lg={6}>
@@ -16,10 +17,16 @@ const TopPerformers = ({data}) => {
                     </CardHeader>
                     <CardBody className="p-0">
                         <ul className="list-group list-group-flush border-dashed mb-0">
-                            {(data || []).map((item, key) => (
+                            {data && data.map((item, key) => (
                                 <li className="list-group-item d-flex align-items-center" key={key}>
                                     <div className="flex-shrink-0" >
+                                        { !!item.token.metadata.media.includes("https://ipfs.io/ipfs/") &&
                                         <img src={item.token.metadata.media}  className="avatar-sm rounded-circle" alt={item.token.metadata.title} />
+                                        }
+                                        {
+                                            !item.token.metadata.media.includes("https://ipfs.io/ipfs/") &&
+                                            <img src={"https://ipfs.fleek.co/ipfs/"+item.token.metadata.media}  className="avatar-sm rounded-circle" alt={item.token.metadata.title} />
+                                        }
                                     </div>
                                     <div className="flex-grow-1 ms-3" style={{width: "70%"}}>
                                         <h6 className="fs-14 mb-1">{item.token.metadata.title}</h6>
