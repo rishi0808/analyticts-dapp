@@ -1,5 +1,6 @@
 # CryptOracle
-## The best analytics dapp, Discovering, interpreting, and communicating significant patterns. Crypto, NFTs, DeFi and Gaming.
+
+### The best analytics dapp, Discovering, interpreting, and communicating significant patterns. Crypto, NFTs, DeFi and Gaming.
 
 ![alt text](https://near.org/wp-content/uploads/2022/10/built-1024x233.png)
 
