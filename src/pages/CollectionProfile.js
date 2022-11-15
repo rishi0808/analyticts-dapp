@@ -70,7 +70,7 @@ export default function CollectionProfile(props){
             if (isHttp > 0 ) {
                 ipfspic =opImage 
             }else{
-                ipfspic = "https://ipfs.fleek.co/ipfs/" + opImage
+                ipfspic = process.env.REACT_APP_IPFS_URL2 + "/" + opImage
             } 
 
             colsTableData.push(
