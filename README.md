@@ -10,16 +10,16 @@
 - Show live data of Paras.id in the dashboard).
 - Test-net launch (Collections’ trends, Collections’ Profiles, Near Highlights, Blog)
 - Get feedback from users.
-  
+
 
 ## Get started instructions available Scripts
 
-### `yarn` 
+### `yarn`
 
 Instal required project dependencies
 
 
-### `yarn start` 
+### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -47,3 +47,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+s
